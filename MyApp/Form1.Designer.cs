@@ -64,7 +64,11 @@
             Load += Form1_Load;
             Paint += Form1_Paint;
             MouseClick += Form1_MouseClick;
+            MouseMove += Form1_MouseMove;
+            MouseWheel += Form1_MouseHover;
             ResumeLayout(false);
+
+            this.MouseMove += new MouseEventHandler(Form1_MouseMove);
         }
 
         #endregion
