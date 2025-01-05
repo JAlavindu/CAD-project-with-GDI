@@ -33,7 +33,19 @@ namespace MyApp
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //Here we assign some arbitrary values to be act as the default
+            rectangle.X = 120;
+            rectangle.Y = 120;
+            rectangle.Width = 80;
+            rectangle.Height = 40;
+            Refresh(); //This method requests the system to redraw the form
+        }
 
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.DrawLine(Pens.Black, lineStart, lineEnd);
+            g.DrawRectangle(Pens.Red, rectangle);
         }
     }
 }
