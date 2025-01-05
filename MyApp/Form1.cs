@@ -11,6 +11,8 @@ namespace MyApp
         double angleLine = 0; // rotation angle of the line
         double angleRectangle = 0; // rotation angle of the rectangle
 
+
+
         public Form1()
         {
             InitializeComponent();
@@ -20,6 +22,24 @@ namespace MyApp
         {
 
         }
+
+        public int getSelection(Point p)
+        {
+            int result = 0;
+            //Obtain the bounding box of the line
+            int maxX = Math.Max(lineStart.X, lineEnd.X);
+            int maxY = Math.Max(lineStart.Y, lineEnd.Y);
+            int minX = Math.Min(lineStart.X, lineEnd.X);
+            int minY = Math.Min(lineStart.Y, lineEnd.Y);
+            //Check whether the point is in the bounding box of the line
+            if (p.X > minX && p.Y > minY &&
+            p.X < maxX && p.Y < maxY)
+                result = 1;
+            //Check whether the point is in the rectangle
+            if (p.X > rectangle.X && p.Y > rectangle.Y &&
+            p.X < rectangle.Right && p.Y < rectangle.Bottom)
+                result = 2;
+            return
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -46,6 +66,28 @@ namespace MyApp
             Graphics g = e.Graphics;
             g.DrawLine(Pens.Black, lineStart, lineEnd);
             g.DrawRectangle(Pens.Red, rectangle);
+        }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            int selection = getSelection(e.Location);//Selected Object
+            if (e.Button == MouseButtons.Left)
+            {// Scale up
+                switch (selection)
+                {
+                    case 1: scaleLine += 0.1; break; //Scale up of the line
+                    case 2: scaleRectangle += 0.1; break; // Scale up the rectangle
+                }
+            }
+            else if (e.Button == MouseButtons.Right)
+            { //Scale Down
+                switch (selection)
+                {
+                    case 1: scaleLine -= 0.1; break;//Scale down the line
+                    case 2: scaleRectangle -= 0.1; break; //scale down the rectangle
+                }
+            }
+            Refresh();//request redraw the form
         }
     }
 }

@@ -63,6 +63,7 @@
             Text = "Form1";
             Load += Form1_Load;
             Paint += Form1_Paint;
+            MouseClick += Form1_MouseClick;
             ResumeLayout(false);
         }
 
